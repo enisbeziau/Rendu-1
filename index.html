@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<!-- Page principale du site donnant les bases de la conjecture de Syracuse -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil | Projet NSI</title>
+    <link rel="shortcut icon" href="assets/icones/icon.png" type="image/x-icon">
+    <!-- Importation de la bibliothèque MathJax qui sert au rendu LaTex des expressions mathématiques -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="ensemble-lien">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="src/voca.html">Vocabulaire</a></li>
+                <li><a href="src/tentatives-resolutions.html">Tentatives résolution</a></li>
+            </ul>
+        </nav>
+
+        <section class="accueil">
+            <figure class="image-fond">
+                <img src="assets/accueil/accueil.png" alt="Fond d'écran de la page d'accueil, image d'expressions mathématiques">
+            </figure>
+
+            <div class="contenu-accueil">
+                <h1>La conjecture de Syracuse</h1>
+                <a id="decouvrir" href="#link">Découvrir</a>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <!-- identifiant link qui sert à ramener à cette partie du site lorsque l'on clique sur le bouton découvrir de la page d'accueil -->
+        <h1 id="link">Énoncé et histoire du problème</h1>
+
+        <section class="presentation">
+            <figure>
+                <a href="assets/accueil/collatz.jpeg">
+                    <img src="assets/accueil/collatz.jpeg" alt="Lothar Collatz">
+                </a>
+                <figcaption>Lothar Collatz, mai 1990</figcaption>
+            </figure>
+
+            <div class="texte-presentation">
+                <h2>Origines et énoncés de la conjecture </h2>
+                <p>
+                    L'histoire de la conjecture de Syracuse remonte au début du XXe siècle, lorsque le mathématicien
+                    allemand Lothar Collatz a formulé cette énigme mathématique. Cette conjecture, bien que
+                    relativement simple à comprendre, demeure l'un des problèmes non résolus les plus célèbres en
+                    mathématiques, et elle continue d'attirer l'attention des mathématiciens du monde entier.
+                    L'énoncé de la conjecture de Syracuse est le suivant : la suite de Syracuse de n'importe quel entier
+                    strictement positif atteint 1
+                    <br>
+                    Malgré sa simplicité apparente, la conjecture de Syracuse pose un défi mathématique intrigant, et
+                    personne n'a encore pu prouver de manière concluante qu'elle est vraie pour tous les nombres. Cette
+                    énigme continue d'inspirer des recherches et des explorations mathématiques, et elle demeure l'un
+                    des mystères non résolus de la discipline.
+                </p>
+            </div>
+        </section>
+
+        <section class="presentation">
+            <div class="texte-presentation">
+                <h2>Application de Syracuse</h2>
+                <p>
+                    La conjecture de Syracuse repose sur une série d'opération appliquée à un nombre entier sctrictement
+                    positif.
+                    Cette opération, appelée application de Syracuse, est définie ainsi :
+
+                    <br><br>
+                    - Prenez n'importe quel nombre entier sctrictement positif <br>
+                    - S'il est pair, divisez le par 2 <br>
+                    - S'il est impair, triplez le et ajoutez 1
+                    <br><br>
+
+                    Remarque : On note conventionnellement \(N\) le nombre de départ.
+                </p>
+            </div>
+
+            <figure>
+                <a href="assets/accueil/valeurs.png" target="_blank" rel="noopener noreferrer">
+                    <img src="assets/accueil/valeurs.png" alt="Application de Syracuse successives pour N = 27">
+                </a>
+                <figcaption>Application de Syracuse successives pour \(N=27\)</figcaption>
+            </figure>
+        </section>
+
+        <section class="presentation">
+            <figure>
+                <a href="assets/accueil/28.png" target="_blank" rel="noopener noreferrer">
+                    <img src="assets/accueil/28.png" alt="Représentation graphique de la suite de Syracuse pour N = 28">
+                </a>
+                <figcaption>Représentation graphique de la suite de Syracuse pour \(N=28\)</figcaption>
+            </figure>
+
+            <div class="texte-presentation">
+                <h2>La suite de Syracuse</h2>
+                <p>
+                    En itérant sur l'application de Syracuse, nous pouvons obtenir une suite appelée suite de Syracuse.
+                    Cette suite se définie par récurrence
+                    \[\forall n\in \mathbb N^* :\quad u_{n+1}=
+                    \left \{
+                    \begin{array}{c @{=} c}
+                    \frac{u_n}{2} & \text{Si } u_n \text{ est pair} \\
+                    3u_n+1 & \text{Si } u_n \text{ est impair}
+                    \end{array}
+                    \right.
+                    \]
+                    En prenant, par exemple, \(u_0=28\), la suite de Syracuse est la suivante
+                    14 ; 7 ; 22 ; 11 ; 34 ; 17 ; 52 ; 26 ; 13 ; 40 ; 20 ; 10 ; 5 ; 16 ; 8 ; 4 ; 2 ; 1. <br>
+                    1 étant impair, on le multiplie par 3 puis on ajoute 1 ce qui nous donne 4 qui est pair et que l'on
+                    divise donc par 2 pour retomber sur 1...
+                    Le cycle (4, 2, 1) se répète alors indéfiniment, on parle de cycle trivial.
+                </p>
+            </div>
+        </section>
+
+        <section class="presentation">
+            <div class="texte-presentation">
+                <h2>La suite compressée de Syracuse</h2>
+                <p>
+                    En observant la formule de la suite de Syracuse, on remarque que si \(u_n\) est impair,
+                    \(u_{n+1}\) est nécessairement pair et l'opération suivante doit donc être une division par deux.
+                    Ainsi, nous pouvons définir une variante de la suite de Syracuse appelée Suite compressée de Syracuse.
+                    La nouvelle suite étant extraite de la suite de Syracuse, la conjecture affirme que celle-ci aboutit
+                    toujours au cycle trivial.
+                    <br>
+                    Cette forme est bien intéressante à représenter sous forme algorithmique car celle-ci à l'avantage
+                    de combiner deux étapes en une seule, ce qui augmente la vitesse des fonctions tout en pouvant
+                    toujours vérifier si la suite de Syracuse atterit ou non.
+                </p>
+            </div>
+
+            <figure>
+                <a href="assets/accueil/28compressee.png" target="_blank" rel="noopener noreferrer">
+                    <img src="assets/accueil/28compressee.png"
+                        alt="Représentation graphique de la suite compressée de Syracuse pour N = 28">
+                </a>
+                <figcaption>Représentation graphique de la suite compressée de Syracuse pour \(N=28\)</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contenu-footer">
+            <p>&copy; <a href="src/infos.html">Enis Béziau 1H</a></p>
+            <ul class="reseau">
+                <li><a href="https://github.com/enisbeziau/Syracuse-NSI" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="mailto:enislycee@gmail.com" target="_blank" rel="noopener noreferrer">Gmail</a></li>
+                <li><a href="http://bit.ly/LMB_1H" target="_blank" rel="noopener noreferrer">Drive</a></li>
+            </ul>
+        </div>
+    </footer>
+    
+</body>
+
+</html>

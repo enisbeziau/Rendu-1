@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<!-- Page présentant les tentatives de résolution de la conjecture de Syracuse à travers plusieurs méthodes -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentatives de résolution | Projet NSI</title>
+    <link rel="shortcut icon" href="../assets/icones/icon.png" type="image/x-icon">
+    <!-- Importation de la bibliothèque MathJax qui permet d'écrire des équations plus proprement grâce à LaTex -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="ensemble-lien">
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="voca.html">Vocabulaire</a></li>
+                <li><a href="tentatives-resolutions.html">Tentatives résolution</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1 class="titre">Tentatives de résolution</h1>
+
+    <main>
+        <!-- Les sections de classe carte sont diff des sections de classe presentation -->
+        <!-- Celles-ci laisseront plus de place au texte et est ainsi plus propice aux longues explications -->
+        <section class="carte">
+            <h2>1. Approche algorithmique</h2>
+            <div class="contenu-carte">
+
+                <div class="texte">
+                    <p>
+                        En se basant sur la définition explicite de la suite de Syracuse compressée, nous pouvons écrire
+                        une fonction python pour vérifier si tous les nombres entiers naturels vérifient la conjecture
+                        de
+                        Syracuse.
+                        <br>
+                        Le programme se découpe en deux fonctions : <br>
+                        - La fonction suite_de_syracuse() prenant en argument un nombre entier et
+                        retournant sa suite de Syracuse (compressée) sous la forme d'une liste d'entier <br>
+                        - La fonction verifier_tous_les_nombres() qui est celle qui devra être appelée pour
+                        lancer le programme.
+                        Celle ci utilise une boucle infinie pour tester un à un tous les nombres entiers en utilisant la
+                        première fonction. Dès qu'un nombre ne vérifie pas la conjecture, la boucle s'arrête grâce à
+                        l'instruction break
+                    </p>
+                </div>
+
+                <figure class="image">
+                    <a href="https://replit.com/@medouard770/syracuse#main.py" target="_blank"
+                        rel="noopener noreferrer">
+                        <img src="../assets/tentatives_resolutions/code.png" alt="Code python" title="Testez-le">
+                    </a>
+                </figure>
+            </div>
+
+            <p>Notre algorithme précédant, bien que fonctionnel, est loin d'être le plus optimal. En effet, celui ci
+                teste tous les nombres entiers sctrictement supérieur à 2. Pour disqualifier
+                d'emblée certains
+                nombres, nous pouvons modifier l'énoncé de la conjecture de Syracuse en un nouvel énoncé
+                équivalent. Ainsi, nous pouvons affirmer que si tout entier a un temps de vol en altitude fini,
+                alors tout vol atterit. Cette nouvelle formulation est intéressante dans notre recherche de contre
+                exemple car elle nous amène à ne chercher que des nombres dont la suite de Syracuse ne passe pas en
+                dessous de \(u_0\) tels que : <br>
+            </p>
+
+            <div class="contenu-carte">
+                <div class="texte">
+                    <p>
+                        - Les nombres de la forme \(2k\) et \(2^n\), pour tout \(n\in \mathbb N^*\),
+                        car ceux ci sont directement divisés par 2 donc \(u_1 \lt N\)
+                        <br><br>
+                        - Les nombres impairs de la forme \(4k+1\) car,
+                        \[4k+1 \rightarrow 12k+4 \rightarrow 6k+2 \rightarrow 3k+1\]
+                        et \(3k+1 \lt 4k+1 \iff u_3 \lt N\)
+                        <br>
+                        Les nombres de la forme \(4k+1\) atterissent donc.
+                        <br><br><br>
+                        - Les nombres de la forme \(16k+3\) car
+                        \[48k+10 \rightarrow 24k+5 \rightarrow 72k+16 \rightarrow 36k+8 \rightarrow 18k+4 \rightarrow
+                        9k+2\]
+                        et \(9k+2 \lt 16k+3 \iff u_6 \lt N\)
+                        <br>
+                        Les nombres de la forme \(16k+3\) atterissent donc.
+                        <br><br>
+                        (Où \(\rightarrow\) désigne l'application de syracuse)
+                    </p>
+                </div>
+
+                <figure class="image">
+                    <a href="https://replit.com/@medouard770/suiteexclusion#main.py" target="_blank"
+                        rel="noopener noreferrer">
+                        <img src="../assets/tentatives_resolutions/code_opti.png" alt="Code Python" title="Testez-le">
+                    </a>
+                </figure>
+            </div>
+            <p>
+                Par des calculs analogues, nous prouvons prouver que plus de 90% des nombres entiers
+                naturels
+                sont inutiles à tester car nous prouvons prouver que leur vol en altitude est fini.
+                Ainsi, seuls
+                les nombres impairs de la forme \(16k+7, 16k+11\) et \(16k+5\) peuvent être des prétendants à un
+                contre exemple. En effet, nous ne pouvons pas prouver avec exactitude que ces vols atterissent
+                car leur comportement varie en fonction des nombres.
+            </p>
+        </section>
+
+        <section class="carte">
+            <h2>2. Recherche de cycles non triviaux</h2>
+            <p>
+                Une autre approche pour vaincre la conjecture de Syracuse serait de prouver qu'il existe un cycle
+                différent du cycle trivial.
+                <br>
+                Pour ce faire, raisonnons par l'absurde et admettons qu'il existe un autre cycle de longueur 3 \((A, B,
+                C)\) tel que
+                \(A\lt B\lt C\) et
+
+                \[A \rightarrow B \rightarrow C \rightarrow A\]
+
+                Nous avons donc nécessairrement \(A\) impair car, le cas échéant, \(B\) serait divisé par 2 et \(B\lt
+                A\).
+                <br>
+                Ainsi \(B=3A+1\), qui est pair donc \(C=\frac{B}{2}=\frac{3A+1}{2}\). Puisque \(C \to A\) et \(C \gt
+                A\), \(C\) est pair et vaut
+                \(\frac{B}{2}=\frac{1}{2}(\frac{3A+1}{2})=\frac{3A+1}{4}\)
+                <br>
+                Résolvons maintenant l'équation d'inconnue \(A\in \mathbb N^*\) afin de déduire les valeurs de \(A, B,
+                C\) tels que le cycle existe.
+                \[A=\frac{3A+1}{4}\iff 4A=3A+1\iff A=1\]
+
+                Ainsi \(B=3\times 1+1=4\;\) et \(C=\frac{B}{2}=\frac{4}{2}=2\)
+                <br>
+                Nous concluons donc que le seul cycle de longueur 3 existant est le cycle trivial.
+                <br>
+                Par des méthodes de démonstration par l'absurde, il est possible de prouver
+                qu'il n'existe pas de cycle de longueur 2 ou 5.
+                <br>
+                En général, le théorème de Eliahou nous dit qu'il
+                n'existe aucun cycle de nombre positif inférieur à 180 000 000 000.
+            </p>
+        </section>
+
+        <section class="carte">
+            <h2>Approche inverse : arbre de Syracuse</h2>
+            <p>
+                Depuis le début, nos approches sont similaires. Nous partons d'une itération sur l'application de
+                Syracuse pour en observer ou démontrer des propriétés. Une autre approche possible est de changer de
+                point de vue et de prendre le problème à l'envers. C'est de cette idée qu'est née l'arbre de syracuse.
+            </p>
+
+            <div class="contenu-carte">
+
+                <div class="texte">
+                    <p>
+                        Partons de 8 Pour y arriver, nous venons soit de l'application de Syracuse 3x + 1, soit de
+                        \(\frac x 2\).
+                        <br>
+                        On test de résoudre l'équation d'inconnue \(n\in \mathbb N^*\) :
+                        \[3n+1=8\iff 3n=7\iff n=\frac{7}{3} \notin \mathbb N^*\]
+
+                        On en déduit donc que 8 ne vient pas de l'application de Syracuse sur les nombres impairs car
+                        \(\frac{7}{3}\) n'est pas un entier naturel. Ainsi, 8 vient forcément de l'application de
+                        Syracuse sur les
+                        nombres pairs et donc de 16.
+                        <br><br>
+                        Nous passons maintenant à 16. Par la même méthode que pour 8, on résoud les équations
+                        d'inconnues \(n\in \mathbb N^*\) :
+                        \[3n+1=16\iff n=5\in \mathbb N^*\, \, \, \text{ou}\, \frac{n}{2}=16\iff n=32\in \mathbb N^* \]
+                        Ces deux équations possèdent des solutions naturels, l'arbre de Syracuse possède donc 2 branches
+                        qui représente les 2 applications de Syracuse possibles. À partir de ces deux branches, d'autres
+                        seront à leur tour crées. Ainsi, il est dit que tous les nombres entiers naturels sctrictement
+                        positifs sont présents dans cet arbre. Nous n'avons cependant par encore réussi à le démontrer.
+                    </p>
+                </div>
+
+                <figure class="image">
+                    <a href="../assets/tentatives_resolutions/arbre.jpg" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/tentatives_resolutions/arbre.jpg" alt="Image de l'arbre de Syracuse">
+                    </a>
+                    <figcaption>Arbre de Syracuse</figcaption>
+                </figure>
+
+            </div>
+        </section>
+
+        <section class="carte">
+            <h2>Un énoncé indécidable ?</h2>
+            <p>
+                Après toutes ces tentatives infructueuses ou n'apportant pas une réponse claire et définitive quant à la
+                validation ou à la réfutation de la conjecture, certains spécialités viennent à se demander si cette
+                question ne serait pas indescidable. Cependant, une méthode de résoudre cette conjecture serait de
+                trouver un contre exemple à celle ci. Pour le moment, tous les nombres de l'intervalle \([1, 2^{68}]\)
+                vérifient la conjecture de Syracuse. Or, il est important de noter que, sur l'infinité des nombres
+                naturels, ce nombre est ridiculement petit. A titre d'exemple, 
+                <a href="https://fr.wikipedia.org/wiki/Conjecture_de_P%C3%B3lya" target="_blank" rel="noopener noreferrer">
+                    la conjecture de Pólya
+                </a>
+                a été réfuté à l'aide d'un contre exemple estimé à \(1,845\times 10^{361}\).
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contenu-footer">
+            <p>&copy; <a href="infos.html">Enis Béziau 1H</a></p>
+            <ul class="reseau">
+                <li><a href="https://github.com/enisbeziau/Syracuse-NSI" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="mailto:enislycee@gmail.com" target="_blank" rel="noopener noreferrer">Gmail</a></li>
+                <li><a href="http://bit.ly/LMB_1H" target="_blank" rel="noopener noreferrer">Drive</a></li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+
+</html>
