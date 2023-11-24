@@ -1,5 +1,4 @@
-Lien du site : https://enisbeziau.github.io/Syracuse-NSI  
-Lien du code : [https://github.com/enisbeziau/Syracuse-NSI/releases/tag/release](https://github.com/enisbeziau/Syracuse-NSI/releases/tag/Phase1)
+Lien du site : https://enisbeziau.github.io/Rendu-1/
 # Document de rendu de projet - Phase n°1
 
 ## I. Choix du sujet  
