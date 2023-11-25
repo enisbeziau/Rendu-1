@@ -7,7 +7,7 @@ J'ai décidé de choisir la conjecture de Syracuse comme sujet pour ce projet ca
 ## II. Organisation du projet
 Les fichiers du projet sont rangés méthodiquement :
 - `assets` est le dossier contenant toutes les illustrations utilisées dans le site
-Ce dossier contient trois sous-dossier qui classe les images selon la page dans laquelle elles sont utilisées : `accueil`, `voca` et `tentatives-resolutions`
+Ce dossier contient trois sous-dossier qui classent les images selon la page dans laquelle elles sont utilisées : `accueil`, `voca` et `tentatives-resolutions`
 - `src` contient toutes les pages html indexés sur le site
 - `index.html` est le seul fichier à la racine. Il contient le code de la page d’accueil
 
