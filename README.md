@@ -1,5 +1,5 @@
-Lien du site : https://enisbeziau.github.io/Rendu-1/
-Lien du code : https://github.com/enisbeziau/Rendu-1/releases/tag/phase1
+Lien du site : https://enisbeziau.github.io/Rendu-1/  
+Lien du code : https://github.com/enisbeziau/Rendu-1/releases/tag/phase1  
 # Document de rendu de projet - Phase n°1
 
 ## I. Choix du sujet  
